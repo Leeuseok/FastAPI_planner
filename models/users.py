@@ -1,12 +1,15 @@
 from pydantic import BaseModel, EmailStr
+from beanie import Document, Link
 from typing import Optional, List
 from models.events import Event
 
-class User(BaseModel):
+class User(Document):
     email:EmailStr
-    username: str
     password: str
     events: Optional[List[Event]] = None
+
+    class Settings:
+        name = "users"
 
     class Config:
         schema_extra = {
