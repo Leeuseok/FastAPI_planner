@@ -8,6 +8,7 @@ class Event(Document):
     description: str
     tags: List[str]
     location: str
+    creator: Optional[str] = None
 
     class Config:
         schema_extra = {
