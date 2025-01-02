@@ -1,5 +1,5 @@
 from beanie import Document
-from pydantic import BaseModel
+from pydantic import BaseModel, ConfigDict
 from typing import List, Optional
 
 class Event(Document):
@@ -10,18 +10,18 @@ class Event(Document):
     location: str
     creator: Optional[str] = None
 
-    class Config:
-        schema_extra = {
-            "example": {
-                "title" : "FastAPI Book Launch",
-                "image": "https://linktomyimage.com/image.png",
-                "description": "We will be discussing the contents of the FastAPI book in this event. Ensure to come with your own copy to win figts!",
-                "tags": ["python", "fastapi", "book", "launch"],
-                "location": "Google Meet"
-            }
-        }
     class Settings:
         name = "events"
+
+    model_config = ConfigDict(json_schema_extra={
+        "example": {
+            "title": "FastAPI Book Launch",
+            "image": "https://linktomyimage.com/image.png",
+            "description": "We will be discussing the contents of the FastAPI book in this event. Ensure to come with your own copy to win gifts!",
+            "tags": ["python", "fastapi", "book", "launch"],
+            "location": "Google Meet"
+        }
+    })
 
 class EventUpdate(BaseModel):
     title: Optional[str]
@@ -30,13 +30,12 @@ class EventUpdate(BaseModel):
     tags: Optional[List[str]]
     location: Optional[str]
 
-    class Config:
-        schema_extra = {
-            "example": {
-                "title" : "FastAPI Book Launch",
-                "image": "https://linktomyimage.com/image.png",
-                "description": "We will be discussing the contents of the FastAPI book in this event. Ensure to come with your own copy to win figts!",
-                "tags": ["python", "fastapi", "book", "launch"],
-                "location": "Google Meet"
-            }
+    model_config = ConfigDict(json_schema_extra={
+        "example": {
+            "title": "FastAPI Book Launch",
+            "image": "https://linktomyimage.com/image.png",
+            "description": "We will be discussing the contents of the FastAPI book in this event. Ensure to come with your own copy to win gifts!",
+            "tags": ["python", "fastapi", "book", "launch"],
+            "location": "Google Meet"
         }
+    })

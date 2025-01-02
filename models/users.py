@@ -1,35 +1,33 @@
-from pydantic import BaseModel, EmailStr
-from beanie import Document, Link
+from pydantic import BaseModel, EmailStr, ConfigDict
+from beanie import Document
 from typing import Optional, List
 from models.events import Event
 
 class User(Document):
-    email:EmailStr
+    email: EmailStr
     password: str
+    username: str
     events: Optional[List[Event]] = None
 
     class Settings:
         name = "users"
 
-    class Config:
-        schema_extra = {
-            "example": {
-                "email" : "fastapi@packt.com",
-                "username": "FastPackt",
-                "password": "strong!!!",
-                "events": [],
-            }
+    model_config = ConfigDict(json_schema_extra={
+        "example": {
+            "email": "fastapi@packt.com",
+            "username": "FastPackt",
+            "password": "strong!!!",
+            "events": [],
         }
+    })
 
 class TokenResponse(BaseModel):
     access_token: str
     token_type: str
 
-    class Config:
-        schema_extra = {
-            "example" : {
-                "email": "fastapi@packt.com",
-                "password": "strong!!!"
-            }
+    model_config = ConfigDict(json_schema_extra={
+        "example": {
+            "access_token": "example_token_value",
+            "token_type": "bearer"
         }
-
+    })
